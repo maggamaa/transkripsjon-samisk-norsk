@@ -1,3 +1,11 @@
+This is my own version of the Samisk–Norsk transcription project. 
+
+Original: https://github.com/tbitu/transkripsjon-samisk-norsk
+
+Edited for public server.
+
+
+
 # Sanntidstranskripsjon og oversettelse
 
 Dette prosjektet er en sanntids-simultanoversetter som transkriberer samisk og norsk tale til norsk tekst, og deretter oversetter teksten til valgfritt målspråk. Løsningen er bygget med en Python-backend for transkripsjon og et webgrensesnitt som håndterer oversettelse, og bruker følgende tjenester:
