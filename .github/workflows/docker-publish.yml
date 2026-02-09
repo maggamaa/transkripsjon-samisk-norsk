@@ -34,7 +34,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.CR_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }} # Replaced: ${{ secrets.CR_PAT }}
 
       # Steg 3: Bygger Docker-imaget basert på din Dockerfile og pusher det til GHCR
       - name: Bygg og push Docker-image
