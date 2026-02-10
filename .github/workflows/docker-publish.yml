@@ -42,4 +42,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/NorthSami-transcriber-translator:latest
+          tags: ghcr.io/${{ github.repository_owner }}/northsami-transcriber-translator:latest
