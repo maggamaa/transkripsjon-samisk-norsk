@@ -114,19 +114,9 @@ whisper_executor = ThreadPoolExecutor(max_workers=2)
 
 #------------------------------------------------------------------
 # Replacement: Added multilanguage support for public server
-SUPPORTED_UI_LANGS = {"sme", "no", "fi", "en"}
-
 @app.route('/')
-def index_default():
+def index():
     return send_from_directory(BASE_DIR, 'index.html', max_age=3600)
-    # Cache HTML file in browser for 1 h
-
-@app.route('/<lang>')
-def index_with_lang(lang):
-    if lang not in SUPPORTED_UI_LANGS:
-        return "Language not supported", 404
-    return send_from_directory(BASE_DIR, 'index.html', max_age=3600)
-    # Cache HTML file in browser for 1 h
 
 # Cache translation JSON files in browser for 24 h
 @app.after_request

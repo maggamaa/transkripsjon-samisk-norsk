@@ -2,7 +2,6 @@
 <html lang="no">
 <head>
    <meta charset="UTF-8">
-   <base href="/" /> <!--Added for public server-->
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title></title>
    <script src="https://cdn.tailwindcss.com"></script>
@@ -255,12 +254,13 @@
         const DEFAULT_UI_LANG = 'no';
         const UI_STRINGS = {};
   
-        function detectLanguageFromURL() {
+        /*function detectLanguageFromURL() {
             const path = window.location.pathname.split("/")[1];
             return SUPPORTED_UI_LANGS.includes(path) ? path : DEFAULT_UI_LANG;
         }  
 
-        let uiLang = detectLanguageFromURL() || DEFAULT_UI_LANG;
+        let uiLang = detectLanguageFromURL() || DEFAULT_UI_LANG;*/
+        let uiLang = localStorage.getItem("uiLang") || DEFAULT_UI_LANG;
         
         // Lazy-load JSON language files
         async function loadLanguage(lang) {
@@ -336,9 +336,13 @@
 
         // Initialize after DOM loads
         document.addEventListener("DOMContentLoaded", async () => {
-            const lang = detectLanguageFromURL() || DEFAULT_UI_LANG;
+            const lang = localStorage.getItem("uiLang") || DEFAULT_UI_LANG;
             await applyLanguage(lang);
         });
+        /*document.addEventListener("DOMContentLoaded", async () => {
+            const lang = detectLanguageFromURL() || DEFAULT_UI_LANG;
+            await applyLanguage(lang);
+        });*/
 
         // Language selector
         const uiLanguageSelect = document.getElementById("uiLanguage");
@@ -346,18 +350,23 @@
         if (uiLanguageSelect) {
             uiLanguageSelect.value = uiLang;
 
-            uiLanguageSelect.addEventListener("change", (e) => {
+            /*uiLanguageSelect.addEventListener("change", (e) => {
                 const lang = e.target.value;
                 history.pushState({}, "", `/${lang}`);
+                applyLanguage(lang);
+            });*/
+            uiLanguageSelect.addEventListener("change", (e) => {
+                const lang = e.target.value;
+                localStorage.setItem("uiLang", lang);
                 applyLanguage(lang);
             });
         }
 
         // URL navigation (back/forward button)
-        window.addEventListener("popstate", () => {
+        /*window.addEventListener("popstate", () => {
             const lang = detectLanguageFromURL();
             applyLanguage(lang);
-        });
+        });*/
 
         function setStatusMessage(key) {
             lastStatusKey = key;
