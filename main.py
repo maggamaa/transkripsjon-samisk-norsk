@@ -121,7 +121,7 @@ def index_default():
     return send_from_directory(BASE_DIR, 'index.html', max_age=3600)
     # Cache HTML file in browser for 1 h
 
-@app.route('./<lang>')
+@app.route('/<lang>')
 def index_with_lang(lang):
     if lang not in SUPPORTED_UI_LANGS:
         return "Language not supported", 404
