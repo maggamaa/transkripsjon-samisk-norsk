@@ -266,7 +266,7 @@
             if (UI_STRINGS[lang]) return; // already loaded
             
             try {
-                const res = await fetch(`/static/i18n/${lang}.json`, {
+                const res = await fetch(`./static/i18n/${lang}.json`, {
                     cache: "force-cache"
                 });
                 if (!res.ok) throw new Error("Language file missing");

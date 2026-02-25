@@ -99,7 +99,7 @@ frontend_dist/
 *.png
 *.jpg
 *.jpeg
-#*.svg
+*.svg
 *.ico
 
 # --- IDE & Editor ---
