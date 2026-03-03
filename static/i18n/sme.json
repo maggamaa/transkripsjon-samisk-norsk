@@ -2,7 +2,7 @@
   "title": "Sámi transkripšuvdna ja jorgaleapmi",
   "appTitle": "Transkripšuvdna ja jorgaleapmi",
 
-  "startRecording": "Álge báddet",
+  "startRecording": "Álgge báddet",
   "stopRecording": "Heaitte báddeme",
 
   "transcription": "Transkripšuvdna",
@@ -25,33 +25,33 @@
     "sju": "Ubmisámegiella"
   },
 
-  "settings": "Innstillinger",
-  "maxClip": "Maks klipplengde",
-  "silenceBeforeSend": "Jaskesvuohta ovdal jietna sádejuvvo",
-  "speechThreshold": "Taleterskel (høyere = mindre følsom)",
+  "settings": "Válljemat",
+  "maxClip": "Guhkimus oassi",
+  "silenceBeforeSend": "Jaskesvuohta ovdal jietna sáddejuvvo",
+  "speechThreshold": "Jietnalassá (alibu = ii nu hearki)",
 
   "contact": "Váldde oktavuođa",
   "about": "Reaiddu birra",
-  "aboutP1": "Váldde áinnas oktavuođa jus háliidat veahkehit, ovttasbargat dahje jus aiggut geavahit bálvalusa prošeavttas.",
-  "aboutP2": "Bálvalus jođihuvvo nu bures go mii nagudit. Nedetid eller variasjon i ytelse kan forekomme.",
-  "credits": "Teknologiija ja resursat",
+  "aboutP1": "Váldde áinnas oktavuođa jus háliidat veahkehit, ovttasbargat dahje jus áiggut geavahit bálvalusa prošeavttas.",
+  "aboutP2": "Bálvalus jođihuvvo nu bures go mii nagodit. Sáhttá leat játtus muhtomin ja sáhttet leat variašuvnnat.",
+  "credits": "Teknologiija ja resurssat",
 
   "translationFailed": "Jorgaleapmi ii lihkostuvvan",
   "translationError": "Feaila jorgalettiin",
 
   "ready": "Gárvvis álggahit",
-  "waitingMic": "Vuordime mikrofonbeassama...",
-  "micError": "Feaila mikrofonbeassamis",
-  "micFail": "Feaila: In ožžon lobi guldalit mikrofona.",
-  "startingMic": "Tilkoblet. Guldalan mikrofona...",
-  "streaming": "Sademe jiena...",
-  "startError": "Feaila baddema álggaheamis",
-  "startFail": "Feaila: In sáhttán baddet.",
+  "waitingMic": "Vuordime mikrofovdnabeassama...",
+  "micError": "Feaila mikrofovdnabeassamis",
+  "micFail": "Feaila: In ožžon lobi guldalit mikrofovnna.",
+  "startingMic": "Goallostan. Guldalan mikrofovnna...",
+  "streaming": "Sáddeme jiena...",
+  "startError": "Feaila báddema álggaheamis",
+  "startFail": "Feaila: In sáhttán báddet.",
   "translating": "Jorgaleame...",
-  "serverError": "Feaila reaidus",
+  "serverError": "Feaila reaiddus",
   "serverFail": "Feaila: ",
-  "disconnected": "Frakoblet. Gárvvis álggahit.",
+  "disconnected": "Oktavuohta botkejuvvon. Gárvvis álggahit.",
   "websocketError": "WebSocket-feaila",
-  "connectionFail": "Tilkoblingsfeil.",
-  "stopped": "Badden lea bissehuvvon."
+  "connectionFail": "Feaila goallosteamis.",
+  "stopped": "Bádden lea bissehuvvon."
 }
