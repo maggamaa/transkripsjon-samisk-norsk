@@ -96,7 +96,7 @@ frontend_dist/
 *.ogg
 *.opus
 *.gif
-*.png
+#*.png
 *.jpg
 *.jpeg
 *.svg
