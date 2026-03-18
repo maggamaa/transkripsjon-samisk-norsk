@@ -127,12 +127,13 @@ vad_lock = threading.Lock()
 def index():
     return send_from_directory(BASE_DIR, 'index.html', max_age=3600) # Cache HTML for 1 h
 
+#Disabled for update purposes
 # Cache translation JSON files in browser for 24 h
-@app.after_request
-def add_cache_headers(response):
-    if request.path.startswith("./static/i18n/"):
-        response.headers["Cache-Control"] = "public, max-age=86400"
-    return response
+#@app.after_request
+#def add_cache_headers(response):
+    #if request.path.startswith("./static/i18n/"):
+        #response.headers["Cache-Control"] = "public, max-age=86400"
+    #return response
     #------------------------------------------------------------------
 
 # Model preloading via HTTP disabled for the public server version
