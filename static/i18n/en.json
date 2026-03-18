@@ -34,6 +34,8 @@
   "about": "About the service",
   "aboutP1": "Feel free to contact us if you want to contribute, collaborate, or plan to use the service in a project.",
   "aboutP2": "The service is operated to the best of our ability and capacity. Downtime or variations in performance may occur.",
+  "gdprNotice": "The service does not store any data.",
+  "gdprLink": "Read more (in Norwegian).",
   "credits": "Technology and resources",
 
   "translationFailed": "Translation failed",

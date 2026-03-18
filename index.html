@@ -316,6 +316,8 @@
             document.getElementById("footerAbout").textContent = t('about');
             document.getElementById("footerAboutP1").textContent = t('aboutP1');
             document.getElementById("footerAboutP2").textContent = t('aboutP2');
+            document.getElementById("footerGdprNotice").textContent = t('gdprNotice');
+            document.getElementById("footerGdprLink").textContent = t('gdprLink');
             document.getElementById("footerCredits").textContent = t('credits');
 
             // Language dropdown
@@ -850,6 +852,35 @@
         applyModelUI(selectedModel);
         */
 
+        // GDPR popup logic
+        document.addEventListener("DOMContentLoaded", () => {
+            const gdprLink = document.getElementById('footerGdprLink');
+            const gdprPopup = document.getElementById('gdprPopup');
+            const closeGdprPopup = document.getElementById('closeGdprPopup');
+
+            if (!gdprLink || !gdprPopup || !closeGdprPopup) return;
+
+            // Open popup
+            gdprLink.addEventListener('click', () => {
+                gdprPopup.classList.remove('hidden');
+                gdprPopup.classList.add('flex');
+            });
+
+            // Close button
+            closeGdprPopup.addEventListener('click', () => {
+                gdprPopup.classList.add('hidden');
+                gdprPopup.classList.remove('flex');
+            });
+
+            // Click outside to close
+            gdprPopup.addEventListener('click', (e) => {
+                if (e.target === gdprPopup) {
+                    gdprPopup.classList.add('hidden');
+                    gdprPopup.classList.remove('flex');
+                }
+            });
+        });
+
     </script>
     </main>
 
@@ -898,6 +929,10 @@
                 <h2 id="footerAbout" class="font-semibold text-2xl mb-4"></h2>
                 <p id="footerAboutP1"></p>
                 <p id="footerAboutP2" class="mt-2"></p>
+                <p class="mt-2">
+                    <span id="footerGdprNotice"></span>
+                    <span id="footerGdprLink" class="hover:underline cursor-pointer"></span>
+                </p>
             </div>
 
             <!-- Credits -->
@@ -960,5 +995,45 @@
             <em>© 2026 Sámi AI Lab</em>. 
         </div>
     </footer>
+
+    <!-- GDPR Popup -->
+    <div id="gdprPopup" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+        <div
+            class="bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-6 rounded-xl max-w-lg w-full relative shadow-lg max-h-[80vh] overflow-y-auto">
+    
+            <!-- Close button -->
+            <button id="closeGdprPopup" class="absolute top-3 right-4 text-xl">&times;</button>
+    
+            <h2 class="text-xl font-bold mb-4">Personvern og databehandling</h2>
+            <div id="gdprPopupText1" class="space-y-3 text-sm leading-relaxed">
+                <h3 class="text-lg font-semibold">Formålet med Ábo</h3>
+                <p>Formålet med Ábo er å tilby sanntidstranskripsjon og -oversetting fra samiske språk til nasjonalstatsspråk, og mellom samiske språk.</p>
+                <h3 class="text-lg font-semibold">Hva er Ábo</h3>
+                <p>Ábo bruker to separate språkmodeller; én for transkribering og én for oversetting. Begge er såkalte nevrale nettverk, en teknologi som fikk sitt gjennombrudd rundt 2010, men som strekker seg tilbake til 1970-tallet. Transkriberingsmodellen er utvikla av Aalto universitet i Finland, og er trent blant annet på data fra Sametingets plenumsmøter. Oversettelsesmodellen er utvikla av Tartu universitet i Estland, der de har spesialisert seg på små finno-ugriske språk, en språkgruppe de samiske språkene er en del av. Begge modellene er gratis og åpent tilgjengelige, akkurat som Ábo.</p>
+                <h3 class="text-lg font-semibold">Hvem er ansvarlig?</h3>
+                <p>Sámi allaskuvla er ansvarlig.</p>
+                <h3 class="text-lg font-semibold">Hva innebærer det for deg å bruke Ábo?</h3>
+                <p>Vi samler ikke inn data om hvem du er eller hva du bruker Ábo til, eller noe annet. Ingen data blir lagret. Det du leser inn blir ikke lagret noe sted. Teksten (transkribert og/eller oversatt) blir heller ikke lagra noe sted. Vi deler heller ikke data med noen andre. Du kan lese mer utfyllende under.</p>
+                <h3 class="text-lg font-semibold">Kort om personvern</h3>
+                <p>Vi innhenter ingen opplysninger og lagrer ikke data. Vi deler heller ikke data med noen andre. Du kan lese mer utfyllende under.</p>
+             </div> 
+             <h2 class="text-xl font-bold my-4">Utfyllende om personvern og data</h2>
+             <div id="gdprPopupText2" class="space-y-3 text-sm leading-relaxed">  
+                <h3 class="text-lg font-semibold">Utdypende om personvern - dataflyt og prosessering</h3>
+                <p>Når du trykker “Start opptak” vil mikrofonen på din enhet (laptop/mobil/...) starte opptak på nettsida du er på (https://samiailab.samas.no/abo/, eid av Sámi allaskuvla). Opptaket sendes videre, fortløpende og stykkevis til en server (en enhet som behandler data, eid av UiT). Hvert korte lydklipp (opp til 60 sekunder) blir transkribert fortløpende på serveren. Lydklippene blir ikke lagra. Den transkriberte teksten sendes tilbake til nettsida og vises i vinduet ditt. Teksten blir ikke lagra. Hvis du har valgt oversettelse, vil den transkriberte teksten bli oversatt på serveren, fortløpende og stykkevis, og oversettelsen sendes tilbake til nettsida og vises i vinduet ditt. Den oversatte teksten blir ikke lagra.</p>
+                <h3 class="text-lg font-semibold">Hva gir oss mulighet til å prosessere data fra deg? </h3>
+                <p>Vi prosesserer data fordi du har trykket "Start opptak" og enten "Transkripsjon" eller "Oversettelse", og vi anser det som et aktivt og informert samtykke om å få dataene transkribert og/eller oversatt. Vi lagrer ikke data, og bruker ikke dine data til noe annet enn å gi deg transkripsjonen og/eller oversettelsen du har bedt om. Vi deler heller ikke data med noen andre.</p>
+                <h3 class="text-lg font-semibold">Hva skjer med dataene dine? </h3>
+                <p>Datane lagres ikke. Det betyr at opptaket av stemmen din ikke finnes noe sted utenom det korte øyeblikket den blir transkribert. Den transkriberte og/eller oversatte teksten finnes heller ikke noe sted annet enn i vinduet på din nettleser. Idet du lukker vinduet er denne teksten forsvunnet for alltid. Dataene deles ikke med noen andre.</p>
+                <p>Ábo driftes sålenge vi har midler</p>
+                <h3 class="text-lg font-semibold">Dine rettigheter</h3>
+                <p>Ingen data lagres  og ingen opplysninger hentes inn. Du kan derfor ikke få innsyn eller be om å få sletta data, fordi det rett og slett ikke finnes noe å få innsyn i, eller å slette.</p>
+                <h3 class="text-lg font-semibold">Hvis du har spørsmål eller vil utøve dine rettigheter, ta kontakt med: </h3>
+                <p>Prosjektleder: Kajsa Møllersen, kajsam@samas.no</p>
+                <p>Vårt personvernombud: Annikken Steinbakk, personvernombud@uit.no,  +47 957 30 030.</p>     
+            </div>
+    
+        </div>
+    </div>
 </body>
 </html>

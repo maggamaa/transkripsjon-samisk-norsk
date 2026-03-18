@@ -34,6 +34,8 @@
   "about": "Tietoa palvelusta",
   "aboutP1": "Ota meihin yhteyttä, jos haluat osallistua kehitykseen, tehdä yhteistyötä tai suunnitella palvelun käyttöä projektissa.",
   "aboutP2": "Palvelua ylläpidetään parhaamme mukaan. Käyttökatkoja tai suorituskyvyn vaihtelua voi esiintyä.",
+  "gdprNotice": "Palvelu ei tallenna mitään dataa.",
+  "gdprLink": "Lue lisää (norjaksi).",
   "credits": "Teknologia ja resurssit",
 
   "translationFailed": "Käännös epäonnistui",

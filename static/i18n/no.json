@@ -34,6 +34,8 @@
   "about": "Om tjenesten",
   "aboutP1": "Ta gjerne kontakt dersom du ønsker å bidra, samarbeide, eller planlegger å bruke tjenesten i et prosjekt.",
   "aboutP2": "Tjenesten driftes etter beste evne og kapasitet. Nedetid eller variasjon i ytelse kan forekomme.",
+  "gdprNotice": "Tjenesten lagrer ikke data.",
+  "gdprLink": "Les mer.",
   "credits": "Teknologi og ressurser",
 
   "translationFailed": "Oversettelse mislyktes",
