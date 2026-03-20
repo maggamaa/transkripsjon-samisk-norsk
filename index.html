@@ -133,11 +133,33 @@
         <div id="outputContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div id="norwegianContainer">
                 <h2 id="transcriptionHeader" class="text-lg font-semibold mb-2 text-center"></h2>
+                <!-- Disabled for the public server:
                 <div id="transcriptionContainer" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-64 overflow-y-auto border border-gray-200 dark:border-gray-600"></div>
+                Replacement (added copy to clipboard):---------------------->
+                <div id="transcriptionContainer" class="relative bg-gray-50 dark:bg-gray-700 rounded-lg p-4 pt-10 h-64 overflow-y-auto border border-gray-200 dark:border-gray-600">
+
+                    <button id="copyTranscriptionBtn"
+                        class="absolute top-2 right-2 text-xs px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 transition opacity-60 hover:opacity-100">
+                        ⧉
+                    </button>
+
+                </div>
+                <!------------------------>
             </div>
             <div id="translationContainer" class="hidden">
                  <h2 class="text-lg font-semibold mb-2 text-center" id="translationHeader"></h2>
+                <!-- Disabled for the public server:
                 <div id="translationOutput" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-64 overflow-y-auto border border-gray-200 dark:border-gray-600"></div>
+                Replacement (added copy to clipboard):---------------------->
+                <div id="translationOutput" class="relative bg-gray-50 dark:bg-gray-700 rounded-lg p-4 pt-10 h-64 overflow-y-auto border border-gray-200 dark:border-gray-600">
+
+                    <button id="copyTranslationBtn"
+                        class="absolute top-2 right-2 text-xs px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 transition opacity-60 hover:opacity-100">
+                        ⧉
+                    </button>
+
+                </div>
+                <!------------------------>            
             </div>
         </div>
  
@@ -193,8 +215,16 @@
  
         //--------------------------
         // Added for public server:
+        const copyTranscriptionBtn = document.getElementById('copyTranscriptionBtn');
+        const copyTranslationBtn = document.getElementById('copyTranslationBtn');
         let lastStatusKey = 'ready';
         window.t = t;
+        const UI_TO_TRANSLATION_LANG = {
+            no: 'nor',
+            en: 'eng',
+            fi: 'fin',
+            sme: 'sme'
+        };
         //--------------------------
 
         let isRecording = false;
@@ -330,6 +360,16 @@
 
             // Rebuild dropdown after translations loaded
             loadSupportedLanguages();
+
+            // Only set default target language if user has NOT manually changed it
+            if (!userChangedTargetLanguage) {
+                const mappedLang = UI_TO_TRANSLATION_LANG[lang];
+
+                if (mappedLang && SUPPORTED_TRANSLATION_LANGS.includes(mappedLang)) {
+                    targetLanguageSelect.value = mappedLang;
+                }
+            }
+
             // Update status
             refreshStatusMessage();
         }
@@ -488,7 +528,7 @@
         function loadSupportedLanguages() {
 
             // Save current selection
-            const previous = targetLanguageSelect.value || 'nor';
+            const previous = targetLanguageSelect.value;
 
             targetLanguageSelect.innerHTML = '';
 
@@ -516,8 +556,6 @@
             // Restore previous selection if it still exists
             if (SUPPORTED_TRANSLATION_LANGS.includes(previous)) {
                 targetLanguageSelect.value = previous;
-            } else if (SUPPORTED_TRANSLATION_LANGS.includes('nor')) {
-                targetLanguageSelect.value = 'nor';
             }
 
             updateTranslationHeader();
@@ -561,7 +599,15 @@
         }
 
         // Update translation header when language changes
+        /* Disabled for public server:
         targetLanguageSelect.addEventListener('change', updateTranslationHeader);
+        Replacement (Track manual user changes): -----------------------*/
+        let userChangedTargetLanguage = false;
+
+        targetLanguageSelect.addEventListener('change', () => {
+            userChangedTargetLanguage = true;
+            updateTranslationHeader();
+        });
 
         // TartuNLP Translation API v2 function
  
@@ -601,6 +647,39 @@
                 return `[${t('translationError')}]`;
             }
         }
+
+        // Copy container content function added for public server--------
+        function copyContainerText(container) {
+            const text = Array.from(container.querySelectorAll('p'))
+                .map(p => p.textContent)
+                .join('\n');
+
+            navigator.clipboard.writeText(text).catch(err => {
+                console.error('Copy failed:', err);
+            });
+        }
+
+        copyTranscriptionBtn.addEventListener('click', () => {
+            copyContainerText(transcriptionContainer);
+            showCopiedFeedback(copyTranscriptionBtn);
+        });
+
+        copyTranslationBtn.addEventListener('click', () => {
+            copyContainerText(translationOutput);
+            showCopiedFeedback(copyTranslationBtn);
+        });
+
+        function showCopiedFeedback(button) {
+            const original = button.textContent;
+            button.textContent = '✓';
+            button.style.opacity = '1';
+
+            setTimeout(() => {
+                button.textContent = original;
+                button.style.opacity = '0.6';
+            }, 1000);
+        }
+        //----------------------------------------------------------------
 
         function sendConfig(key, value) {
             if (socket && socket.readyState === WebSocket.OPEN) {
@@ -826,8 +905,11 @@
         }
 
         recordButton.addEventListener('click', () => { if (!isRecording) startRecording(); else stopRecording(); });
+        /* Disabled for public server:
         updateActiveButton(showNorwegianBtn);
         showNorwegianBtn.click();
+        Replacement (shows "Both" as default):---------------------- */
+        showBothBtn.click();
 
         /* Disabled for public server:
         async function preloadModel(modelName) {
@@ -856,7 +938,7 @@
         applyModelUI(selectedModel);
         */
 
-        // GDPR popup logic
+        // GDPR popup logic added for public server
         document.addEventListener("DOMContentLoaded", () => {
             const gdprLink = document.getElementById('footerGdprLink');
             const gdprPopup = document.getElementById('gdprPopup');
@@ -996,7 +1078,13 @@
         <!-- Bottom Bar -->
         <div class="max-w-7xl mx-auto px-6 pb-2 text-base"> 
             <img src="./static/images/building-schema.svg"> 
-            <em>© 2026 Sámi AI Lab</em>. 
+            <em>© 2026 Sámi AI Lab - 
+                <a href="https://creativecommons.org/licenses/by/4.0/"
+                    class="underline md:no-underline md:hover:underline"
+                    target="_blank" rel="noopener">
+                    CC BY 4.0
+                </a>
+            </em>
         </div>
     </footer>
 
