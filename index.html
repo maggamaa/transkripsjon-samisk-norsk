@@ -136,18 +136,22 @@
                 <!-- Disabled for the public server:
                 <div id="transcriptionContainer" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-64 overflow-y-auto border border-gray-200 dark:border-gray-600"></div>
                 Replacement (added copy to clipboard):---------------------->
-                <div id="transcriptionContainer" class="relative bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-64 overflow-y-auto border border-gray-200 dark:border-gray-600">
+                <div id="transcriptionContainer"
+                    class="bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 h-64 flex flex-col">
 
-                    <div class="sticky top-0 flex justify-end bg-gray-50 dark:bg-gray-700 z-10">
+                    <!-- Header (fixed, always visible) -->
+                    <div class="flex justify-end p-2">
                         <button id="copyTranscriptionBtn"
                             class="text-xs px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 transition opacity-60 hover:opacity-100">
                             ⧉
                         </button>
                     </div>
-                    <!-- Text content wrapper -->
-                    <div class="pt-6">
+
+                    <!-- Scrollable text area -->
+                    <div class="flex-1 overflow-y-auto px-4 pb-4">
                         <!-- <p> elements go here -->
                     </div>
+
                 </div>
                 <!------------------------>
             </div>
