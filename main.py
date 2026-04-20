@@ -125,7 +125,7 @@ vad_lock = threading.Lock()
 # Replacement:
 @app.route('/')
 def index():
-    return send_from_directory(BASE_DIR, 'index.html', max_age=3600) # Cache HTML for 1 h
+    return send_from_directory(BASE_DIR, 'index.html') 
 
 #Disabled for update purposes
 # Cache translation JSON files in browser for 24 h
