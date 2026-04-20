@@ -36,6 +36,7 @@
   "aboutP2": "Bálvalus jođihuvvo nu bures go mii nagodit. Sáhttá leat játtus muhtomin ja sáhttet leat variašuvnnat.",
   "gdprNotice": "Reaiddu ii vuorkko dáhtaid.",
   "gdprLink": "Loga eambbo (dárogillii).",
+  "faqLink": "Dávjá jearahuvvon gažaldagat.",
   "credits": "Teknologiija ja resurssat",
 
   "translationFailed": "Jorgaleapmi ii lihkostuvvan",
@@ -55,5 +56,15 @@
   "disconnected": "Oktavuohta botkejuvvon. Gárvvis álggahit.",
   "websocketError": "WebSocket-feaila",
   "connectionFail": "Feaila goallosteamis.",
-  "stopped": "Bádden lea bissehuvvon."
+  "stopped": "Bádden lea bissehuvvon.",
+
+  "faq": [
+    {
+      "t": "Dávjá jearahuvvon gažaldagat"
+    },
+    {
+      "q": "",
+      "a": "Boađi boađi."
+    }
+  ]
 }

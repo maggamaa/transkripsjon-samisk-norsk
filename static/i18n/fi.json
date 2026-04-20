@@ -36,6 +36,7 @@
   "aboutP2": "Palvelua ylläpidetään parhaamme mukaan. Käyttökatkoja tai suorituskyvyn vaihtelua voi esiintyä.",
   "gdprNotice": "Palvelu ei tallenna mitään dataa.",
   "gdprLink": "Lue lisää (norjaksi).",
+  "faqLink": "Usein kysytyt kysymykset.",
   "credits": "Teknologia ja resurssit",
 
   "translationFailed": "Käännös epäonnistui",
@@ -55,5 +56,83 @@
   "disconnected": "Yhteys katkaistu. Valmis aloittamaan.",
   "websocketError": "WebSocket-virhe",
   "connectionFail": "Yhteyden muodostaminen epäonnistui.",
-  "stopped": "Tallennus pysäytetty."
+  "stopped": "Tallennus pysäytetty.",
+
+  "faq": [
+    {
+      "t": "Usein kysytyt kysymykset"
+    },
+    {
+      "q": "Mikä tämä palvelu on?",
+      "a": "Ábo on reaaliaikainen litterointi- ja käännöspalvelu saamelaisille kielille. Se muuntaa puhutun pohjoissaamen tekstiksi ja voi kääntää sen useille muille kielille."
+    },
+    {
+      "q": "Mikä on palvelun tarkoitus?",
+      "a": "Ábon tarkoituksena on tukea saamen kielten käyttöä arjen viestinnässä. Palvelun avulla saamenkieliset voivat käyttää omaa kieltään myös tilanteissa, joissa muut eivät sitä ymmärrä."
+    },
+    {
+      "q": "Mihin voin käyttää Áboa?",
+      "a": "Palvelu on tarkoitettu reaaliaikaiseen käyttöön, esimerkiksi kokouksissa tai keskusteluissa saamenkielisten ja ei-saamenkielisten välillä. Sen avulla voidaan viestiä henkilöiden kanssa, jotka eivät ymmärrä saamea. Lisäksi palvelua voidaan käyttää ääntämisen harjoitteluun saamea opiskeltaessa tai kirjallisen saamenkielisen tekstin tuottamiseen puheen avulla. Palvelua kehitetään jatkuvasti, ja uusia käyttötapoja voi syntyä uusien ominaisuuksien myötä."
+    },
+    {
+      "q": "Miksi Ábo litteroi vain pohjoissaamea?",
+      "a": "Nykyinen versio perustuu malleihin, jotka on koulutettu pääasiassa pohjoissaamen aineistolla. Tämä aineisto on tällä hetkellä laajin ja parhaiten saatavilla oleva."
+    },
+    {
+      "q": "Ymmärtääkö Ábo pohjoissaamen eri murteita?",
+      "a": "Ábo on koulutettu ääniaineistoilla, jotka ovat peräisin Yle Sápmilta ja Norjan saamelaiskäräjien istunnoista. Tämän vuoksi palvelu pystyy tunnistamaan jonkin verran murre-eroja aineiston sisällöstä riippuen."
+    },
+    {
+      "q": "Tulevatko muut saamen kielet saataville?",
+      "a": "Tavoitteena on lisätä tuki muille saamen kielille tulevaisuudessa, kun riittävää aineistoa ja kehittyneempiä malleja tulee saataville."
+    },
+    {
+      "q": "Miksi palvelu ei litteroi suomen-, norjan- tai englanninkielistä puhetta?",
+      "a": "Suurille kansallisille kielille on jo olemassa laajasti käytössä olevia työkaluja, kuten Google Translate, jotka tukevat puheentunnistusta ja käännöksiä. Ábo keskittyy saamen kieliin, joita nykyinen teknologia tukee vähemmän."
+    },
+    {
+      "q": "Mille kielille kääntäminen on mahdollista?",
+      "a": "Pohjoissaamea voidaan kääntää useille kielille, kuten suomeksi, norjaksi, englanniksi sekä muihin saamen kieliin. Saatavilla olevat kielet esitetään kohdekielivalikossa."
+    },
+    {
+      "q": "Voivatko ihmiset nyt esimerkiksi Helsingin metrossa ymmärtää, mitä puhun saameksi?",
+      "a": "Kyllä, jos he käyttävät Áboa."
+    },
+    {
+      "q": "Miksi äänitiedostoja ei voi ladata palveluun?",
+      "a": "Äänitiedostojen lataaminen ei ole tällä hetkellä mahdollista rajallisen palvelinkapasiteetin vuoksi. Äänitiedostojen litterointiin on saatavilla erillisiä palveluja, kuten Norjan kansalliskirjaston (Nasjonalbiblioteket) tarjoamat työkalut pohjoissaamelle (https://huggingface.co/spaces/NbAiLab/whisper-sami-demo) ja luulajansaamelle (https://huggingface.co/spaces/NbAiLab/whisper-lule-sami-demo). Jos tarvitset tukea näiden palveluiden käytössä, voit lähettää sähköpostia osoitteeseen nb@nb.no."
+    },
+    {
+      "q": "Täytyykö palvelun käyttöä varten asentaa ohjelmia?",
+      "a": "Ei. Palvelu toimii suoraan verkkoselaimessa. Käyttö edellyttää ainoastaan mikrofonin käyttöoikeuden sallimista."
+    },
+    {
+      "q": "Toimiiko palvelu aina virheettömästi?",
+      "a": "Palvelua tarjotaan käytettävissä olevien resurssien puitteissa. Käytössä voi esiintyä virheitä tai tilapäisiä käyttökatkoja."
+    },
+    {
+      "q": "Voiko transkriptioihin ja käännöksiin luottaa?",
+      "a": "Tulosten tarkkuus vaihtelee puheen selkeyden ja murteen mukaan. Parhaan tuloksen saavuttamiseksi suositellaan selkeää puhetta, taustamelun minimointia, laadukkaan mikrofonin käyttöä sekä luonnollista puhenopeutta."
+    },
+    {
+      "q": "Miksi kääntäminen kestää hetken?",
+      "a": "Puhe käsitellään lyhyissä osissa. Ensin suoritetaan litterointi, jonka jälkeen teksti käännetään. Tämä voi aiheuttaa lyhyen viiveen."
+    },
+    {
+      "q": "Mitä tiedoilleni tapahtuu palvelua käytettäessä?",
+      "a": "Puhe välitetään palvelimelle, jossa se muunnetaan tekstiksi ja tarvittaessa käännetään. Tulokset palautetaan selaimeen. Kaikki käsittely tapahtuu reaaliaikaisesti, eikä ääntä tai tekstiä tallenneta tai luovuteta eteenpäin."
+    },
+    {
+      "q": "Kuka omistaa Ábon?",
+      "a": "Ábo perustuu avoimiin teknologioihin, eikä sillä ole omistajaa. Sen käyttämä lähdekoodi ja mallit ovat avoimesti saatavilla, joten palvelusta voidaan kehittää omia versioita ja sovelluksia. Yhteistyö ja lahjoitukset ovat tervetulleita."
+    },
+    {
+      "q": "Kuka on vastuussa Ábosta?",
+      "a": "Palvelua ylläpitää Saamelaisen korkeakoulun (Sámi allaskuvla) Sámi AI Lab."
+    },
+    {
+      "q": "Mitä Ábon käyttö maksaa?",
+      "a": "Ábo on maksuton palvelu. Sen rahoituksesta vastaa tällä hetkellä Sámi allaskuvla saamelaisyhteisön hyväksi. Kehitystyöhön on osallistunut myös yksityishenkilöitä."
+    }
+  ]
 }

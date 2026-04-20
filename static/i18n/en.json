@@ -36,6 +36,7 @@
   "aboutP2": "The service is operated to the best of our ability and capacity. Downtime or variations in performance may occur.",
   "gdprNotice": "The service does not store any data.",
   "gdprLink": "Read more (in Norwegian).",
+  "faqLink": "Frequently asked questions.",
   "credits": "Technology and resources",
 
   "translationFailed": "Translation failed",
@@ -55,5 +56,83 @@
   "disconnected": "Disconnected. Ready to start.",
   "websocketError": "WebSocket error",
   "connectionFail": "Connection failed.",
-  "stopped": "Recording stopped."
+  "stopped": "Recording stopped.",
+
+  "faq": [
+    {
+      "t": "Frequently asked questions"
+    },
+    {
+      "q": "What is this service?",
+      "a": "Ábo is a real-time transcription and translation tool for Sámi languages. It converts spoken Northern Sámi into text and can translate it into several other languages."
+    },
+    {
+      "q": "What is the purpose of the service?",
+      "a": "The purpose of Ábo is to support the use of Sámi languages in everyday communication. It allows Sámi speakers to use their own language even when others do not understand it."
+    },
+    {
+      "q": "What can I use Ábo for?",
+      "a": "The tool is designed for live use, such as meetings or conversations between Sámi and non-Sámi speakers, so you can use Ábo to communicate with people who don't understand Sámi. Additionally, you could practice pronunciation if you are learning Sámi or produce written Sámi text by speaking and copying the result into emails or other documents. The service has evolved over time, and new use cases continue to emerge as features are added."
+    },
+    {
+      "q": "Why does Ábo only transcribe Northern Sámi?",
+      "a": "The current version is based on models trained primarily on Northern Sámi data. This is the most widely available and developed dataset."
+    },
+    {
+      "q": "Can Ábo understand different Northern Sámi dialects?",
+      "a": "Ábo is trained on audio recordings from Yle Sápmi and Norwegian Sámediggi sessions. This means it can understand some dialect variation, depending on what was included in the training data."
+    },
+    {
+      "q": "Will other Sámi languages be supported?",
+      "a": "We hope to add support for more Sámi languages in the future as better data and models become available."
+    },
+    {
+      "q": "Why does the service not transcribe Norwegian, Finnish or English speech?",
+      "a": "There are already widely available tools, such as Google Translate, that support transcription and translation for major national languages. Ábo focuses on Sámi languages, which are less supported by existing technology."
+    },
+    {
+      "q": "Which languages can it translate to?",
+      "a": "You can translate Northern Sámi into several languages, including Norwegian, Finnish, English and other Sámi languages. The available options are shown in the language selector."
+    },
+    {
+      "q": "Can people in Oslo understand what I'm saying on the metro now?",
+      "a": "Well yes, if they use Ábo."
+    },
+    {
+      "q": "Why can I not upload audio files?",
+      "a": "Audio file upload is not currently supported, due to limited server capacity. If you need audio file transcription, the National Library of Norway (Nasjonalbiblioteket) provides dedicated tools for Northern Sámi (https://huggingface.co/spaces/NbAiLab/whisper-sami-demo) and Lule Sámi (https://huggingface.co/spaces/NbAiLab/whisper-lule-sami-demo). If those services are unavailable, you can contact them directly for support at nb@nb.no."
+    },
+    {
+      "q": "Do I need to install anything?",
+      "a": "No. The service runs directly in your browser. You only need to allow microphone access."
+    },
+    {
+      "q": "Does the service always work perfectly?",
+      "a": "The service is provided to the best of our ability, but errors and downtime may occur."
+    },
+    {
+      "q": "Can I rely on the transcription and translation results?",
+      "a": "Accuracy can vary depending on speech clarity and dialect. For best results speak clearly, avoid background noise, use a good microphone and speak at a natural pace."
+    },
+    {
+      "q": "Why does translation take a moment?",
+      "a": "Audio is processed in short segments. Transcription happens first, followed by translation, which can introduce a small delay."
+    },
+    {
+      "q": "What happens to my data when I use the service?",
+      "a": "Your audio is streamed to a server where it is transcribed and optionally translated. The results are sent back to your browser. Everything is processed in real time and discarded immediately after processing. Neither the audio nor the text is stored or shared anywhere."
+    },
+    {
+      "q": "Who owns Ábo?",
+      "a": "Ábo is based on open technologies and is not owned in a restrictive sense. The code and models it builds upon are openly available, meaning anyone can create their own version or adapt it for their needs. We gladly welcome contributions and collaboration."
+    },
+    {
+      "q": "Who is responsible for Ábo?",
+      "a": "The service is operated by the Sámi AI Lab at Sámi University of Applied Sciences (Sámi Allaskuvla)."
+    },
+    {
+      "q": "What does it cost to use Ábo?",
+      "a": "Ábo is free to use. It is currently funded by Sámi Allaskuvla as a service to the Sámi community. Development has also been supported by individual contributors."
+    }
+  ]
 }

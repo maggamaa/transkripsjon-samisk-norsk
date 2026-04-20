@@ -36,6 +36,7 @@
   "aboutP2": "Tjenesten driftes etter beste evne og kapasitet. Nedetid eller variasjon i ytelse kan forekomme.",
   "gdprNotice": "Tjenesten lagrer ikke data.",
   "gdprLink": "Les mer.",
+  "faqLink": "Ofte stilte spørsmål.",
   "credits": "Teknologi og ressurser",
 
   "translationFailed": "Oversettelse mislyktes",
@@ -55,5 +56,83 @@
   "disconnected": "Frakoblet. Klar til å starte.",
   "websocketError": "WebSocket-feil",
   "connectionFail": "Tilkoblingsfeil.",
-  "stopped": "Opptaket er stoppet."
+  "stopped": "Opptaket er stoppet.",
+
+  "faq": [
+    {
+      "t": "Ofte stilte spørsmål"
+    },
+    {
+      "q": "Hva er denne tjenesten?",
+      "a": "Ábo er et verktøy for sanntidstranskripsjon og -oversettelse for samiske språk. Den gjør om muntlig nordsamisk til tekst og kan oversette det til flere andre språk."
+    },
+    {
+      "q": "Hva er formålet med tjenesten?",
+      "a": "Formålet med Ábo er å støtte bruk av samiske språk i daglig kommunikasjon. Den lar samisktalende bruke sitt eget språk selv når andre ikke forstår det."
+    },
+    {
+      "q": "Hva kan jeg bruke Ábo til?",
+      "a": "Verktøyet er laget for bruk i sanntid, for eksempel i møter eller samtaler mellom samisktalende og ikke-samisktalende. Du kan bruke Ábo til å kommunisere med personer som ikke forstår samisk. I tillegg kan du øve på uttale dersom du lærer samisk, eller produsere skriftlig samisk ved å snakke og kopiere resultatet inn i e-poster eller andre dokumenter. Tjenesten har utviklet seg over tid, og nye bruksområder oppstår etter hvert som nye funksjoner legges til."
+    },
+    {
+      "q": "Hvorfor transkriberer Ábo kun nordsamisk?",
+      "a": "Den nåværende versjonen er basert på modeller som hovedsakelig er trent på nordsamiske data. Dette er det mest tilgjengelige og utviklede datagrunnlaget."
+    },
+    {
+      "q": "Kan Ábo forstå ulike nordsamiske dialekter?",
+      "a": "Ábo er trent på lydopptak fra Yle Sápmi og norske sametingssesjoner. Det betyr at den kan forstå noe dialektvariasjon, avhengig av hva som er inkludert i treningsdataene."
+    },
+    {
+      "q": "Vil andre samiske språk bli støttet?",
+      "a": "Vi håper å legge til støtte for flere samiske språk i fremtiden, etter hvert som bedre data og modeller blir tilgjengelige."
+    },
+    {
+      "q": "Hvorfor transkriberer ikke tjenesten norsk, finsk eller engelsk tale?",
+      "a": "Det finnes allerede gode og tilgjengelige verktøy, som for eksempel Google Translate, som støtter transkripsjon og oversettelse for store nasjonalspråk. Ábo fokuserer på samiske språk, som er mindre støttet av eksisterende teknologi."
+    },
+    {
+      "q": "Hvilke språk kan det oversettes til?",
+      "a": "Du kan oversette nordsamisk til flere språk, inkludert norsk, finsk, engelsk og andre samiske språk. Tilgjengelige alternativer vises i språkvelgeren."
+    },
+    {
+      "q": "Kan folk i Oslo forstå hva jeg sier på T-banen nå?",
+      "a": "Ja, hvis de bruker Ábo."
+    },
+    {
+      "q": "Hvorfor kan jeg ikke laste opp lydfiler?",
+      "a": "Opplasting av lydfiler støttes foreløpig ikke på grunn av begrenset serverkapasitet. Hvis du trenger transkripsjon av lydfiler, tilbyr Nasjonalbiblioteket egne verktøy for nordsamisk (https://huggingface.co/spaces/NbAiLab/whisper-sami-demo) og lulesamisk (https://huggingface.co/spaces/NbAiLab/whisper-lule-sami-demo). Hvis disse tjenestene ikke fungerer, kan du kontakte dem direkte på nb@nb.no."
+    },
+    {
+      "q": "Må jeg installere noe?",
+      "a": "Nei. Tjenesten kjører direkte i nettleseren din. Du trenger bare å gi tilgang til mikrofonen."
+    },
+    {
+      "q": "Fungerer tjenesten alltid perfekt?",
+      "a": "Tjenesten tilbys etter beste evne, men feil og nedetid kan forekomme."
+    },
+    {
+      "q": "Kan jeg stole på transkripsjonene og oversettelsene?",
+      "a": "Nøyaktigheten kan variere avhengig av tydelighet i tale og dialekt. For best resultat bør du snakke tydelig, unngå bakgrunnsstøy, bruke en god mikrofon og holde et naturlig tempo."
+    },
+    {
+      "q": "Hvorfor tar oversettelsen litt tid?",
+      "a": "Lyden behandles i korte segmenter. Først skjer transkripsjon, deretter oversettelse, noe som kan gi en liten forsinkelse."
+    },
+    {
+      "q": "Hva skjer med dataene mine når jeg bruker tjenesten?",
+      "a": "Lyden din strømmes til en server hvor den transkriberes og eventuelt oversettes. Resultatet sendes tilbake til nettleseren din. Alt behandles i sanntid og slettes umiddelbart etter prosessering. Verken lyd eller tekst lagres eller deles noe sted."
+    },
+    {
+      "q": "Hvem eier Ábo?",
+      "a": "Ábo er basert på åpne teknologier og eies ikke på en restriktiv måte. Koden og modellene den bygger på er fritt tilgjengelige, noe som betyr at hvem som helst kan lage sin egen versjon eller tilpasse den til egne behov. Vi ønsker bidrag og samarbeid velkommen."
+    },
+    {
+      "q": "Hvem er ansvarlig for Ábo?",
+      "a": "Tjenesten driftes av Sámi AI Lab ved Samisk Høgskole (Sámi allaskuvla)."
+    },
+    {
+      "q": "Hva koster det å bruke Ábo?",
+      "a": "Ábo er gratis å bruke. Tjenesten finansieres for tiden av Sámi allaskuvla som et tilbud til det samiske samfunnet. Utviklingen har også blitt støttet av enkeltpersoner."
+    }
+  ]
 }
