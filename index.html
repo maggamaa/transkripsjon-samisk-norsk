@@ -832,7 +832,7 @@
                     const transcriptionP = document.createElement('p');
                     transcriptionP.textContent = data.text;
                     transcriptionP.classList.add('mb-2');
-                    transcriptionContainer.appendChild(transcriptionP);
+                    transcriptionContainer.innerHTML = `<p>${data.text}</p>`; //transcriptionContainer.appendChild(transcriptionP);
                     transcriptionContainer.scrollTop = transcriptionContainer.scrollHeight;
 
                     // Public server only translates if translation UI is visible and prevents translation placeholder if text is empty

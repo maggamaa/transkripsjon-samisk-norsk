@@ -378,9 +378,25 @@ def stream(ws):
    loader_state_lock = threading.Lock()
    model_loader_state = {"thread": None, "pending": None}
    ws_send_lock = threading.Lock()
+
+   text_buffer = []
+   text_buffer_lock = threading.Lock()
  
    def safe_ws_send(payload):
        try:
+           if payload.get("type") == "transcription":
+            with text_buffer_lock:
+                text_buffer.append(payload["text"])
+
+                # keep only recent entries
+                if len(text_buffer) > 20:
+                    del text_buffer[:-20]
+
+                combined_text = " ".join(text_buffer)
+                combined_text = format_text(combined_text)
+
+                payload["text"] = combined_text
+
            with ws_send_lock:
                ws.send(json.dumps(payload))
        except ConnectionClosed as closed_err:
