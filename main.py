@@ -24,6 +24,8 @@ from collections import deque
 from model_registry import DEFAULT_CONFIG, SUPPORTED_MODELS
 from simple_websocket.errors import ConnectionClosed
 
+from deepmultilingualpunctuation import PunctuationModel
+punct_model = PunctuationModel()
 
 class ModelManager:
    def __init__(self, available_models, device_name, preferred_dtype):
@@ -180,20 +182,26 @@ def format_text(text: str) -> str:
     if not text:
         return ""
 
-    # Remove weird spacing
+    # normalize whitespace
     text = " ".join(text.split())
 
-    # Lowercase everything first
+    # lowercase then capitalize first letter
     text = text.lower()
-
-    # Capitalize first letter
-    text = text[0].upper() + text[1:] if text else text
-
-    # optional punctuation
-    if text[-1] not in ".!?":
-        text += "."
+    if text:
+        text = text[0].upper() + text[1:]
 
     return text
+
+def restore_punctuation(text: str) -> str:
+    if not text:
+        return ""
+
+    try:
+        punctuated = punct_model.restore_punctuation(text)
+        return punctuated
+    except Exception as e:
+        print(f"Punctuation error: {e}")
+        return text
 
 def process_audio_task(audio_input, config, send_fn):
    """Transkriberer lydklipp med valgt modell og sender tekst."""  
@@ -277,8 +285,8 @@ def process_audio_task(audio_input, config, send_fn):
                 transcription = processor.batch_decode(predicted_ids)[0].strip()
                 if transcription:
                     print(f"Transkribert: {transcription}")
-                                    
-                    formatted_text = format_text(transcription)
+                    punctuated_text = restore_punctuation(transcription)
+                    formatted_text = format_text(punctuated_text)
 
                     send_fn({
                         "type": "transcription",
@@ -379,24 +387,8 @@ def stream(ws):
    model_loader_state = {"thread": None, "pending": None}
    ws_send_lock = threading.Lock()
 
-   text_buffer = []
-   text_buffer_lock = threading.Lock()
- 
    def safe_ws_send(payload):
        try:
-           if payload.get("type") == "transcription":
-            with text_buffer_lock:
-                text_buffer.append(payload["text"])
-
-                # keep only recent entries
-                if len(text_buffer) > 20:
-                    del text_buffer[:-20]
-
-                combined_text = " ".join(text_buffer)
-                combined_text = format_text(combined_text)
-
-                payload["text"] = combined_text
-
            with ws_send_lock:
                ws.send(json.dumps(payload))
        except ConnectionClosed as closed_err:
