@@ -175,6 +175,26 @@ except Exception as e:
 
 
 # --- Helper functions ---
+
+def format_text(text: str) -> str:
+    if not text:
+        return ""
+
+    # Remove weird spacing
+    text = " ".join(text.split())
+
+    # Lowercase everything first
+    text = text.lower()
+
+    # Capitalize first letter
+    text = text[0].upper() + text[1:] if text else text
+
+    # optional punctuation
+    if text[-1] not in ".!?":
+        text += "."
+
+    return text
+
 def process_audio_task(audio_input, config, send_fn):
    """Transkriberer lydklipp med valgt modell og sender tekst."""  
    model_name = config.get('MODEL_NAME', DEFAULT_CONFIG['MODEL_NAME'])
@@ -257,9 +277,12 @@ def process_audio_task(audio_input, config, send_fn):
                 transcription = processor.batch_decode(predicted_ids)[0].strip()
                 if transcription:
                     print(f"Transkribert: {transcription}")
+                                    
+                    formatted_text = format_text(transcription)
+
                     send_fn({
                         "type": "transcription",
-                        "text": transcription,
+                        "text": formatted_text,
                     })
                 else:
                     print("Ingen tekst gjenkjent.")
@@ -355,7 +378,7 @@ def stream(ws):
    loader_state_lock = threading.Lock()
    model_loader_state = {"thread": None, "pending": None}
    ws_send_lock = threading.Lock()
-
+ 
    def safe_ws_send(payload):
        try:
            with ws_send_lock:
