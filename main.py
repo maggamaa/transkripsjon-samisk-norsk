@@ -6,6 +6,7 @@ from flask import Flask, send_from_directory, request, jsonify
 # Added for public server----------------------------
 import os 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+import re
 #----------------------------------------------------
 from flask_sock import Sock
 from flask_cors import CORS
@@ -23,9 +24,6 @@ from collections import deque
 
 from model_registry import DEFAULT_CONFIG, SUPPORTED_MODELS
 from simple_websocket.errors import ConnectionClosed
-
-from deepmultilingualpunctuation import PunctuationModel
-punct_model = PunctuationModel()
 
 class ModelManager:
    def __init__(self, available_models, device_name, preferred_dtype):
@@ -178,30 +176,24 @@ except Exception as e:
 
 # --- Helper functions ---
 
+# Added for public server----------------------------
 def format_text(text: str) -> str:
     if not text:
         return ""
 
-    # normalize whitespace
+    # normalize spaces
     text = " ".join(text.split())
 
-    # lowercase then capitalize first letter
+    # lowercase everything first
     text = text.lower()
-    if text:
-        text = text[0].upper() + text[1:]
+
+    # capitalize first letter of string + after punctuation
+    text = re.sub(r'(^|[.!?]\s+)([a-záčđŋšŧžæøå])',
+                  lambda m: m.group(1) + m.group(2).upper(),
+                  text)
 
     return text
-
-def restore_punctuation(text: str) -> str:
-    if not text:
-        return ""
-
-    try:
-        punctuated = punct_model.restore_punctuation(text)
-        return punctuated
-    except Exception as e:
-        print(f"Punctuation error: {e}")
-        return text
+    # ------------------------------------------------
 
 def process_audio_task(audio_input, config, send_fn):
    """Transkriberer lydklipp med valgt modell og sender tekst."""  
@@ -285,12 +277,12 @@ def process_audio_task(audio_input, config, send_fn):
                 transcription = processor.batch_decode(predicted_ids)[0].strip()
                 if transcription:
                     print(f"Transkribert: {transcription}")
-                    punctuated_text = restore_punctuation(transcription)
-                    formatted_text = format_text(punctuated_text)
+
+                    formatted = format_text(transcription)
 
                     send_fn({
                         "type": "transcription",
-                        "text": formatted_text,
+                        "text": formatted,
                     })
                 else:
                     print("Ingen tekst gjenkjent.")
