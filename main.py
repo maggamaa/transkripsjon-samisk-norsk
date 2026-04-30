@@ -193,6 +193,17 @@ def format_text(text: str) -> str:
                   text)
 
     return text
+
+def simple_punctuation(text: str) -> str:
+    text = text.strip()
+
+    if not text:
+        return ""
+
+    if text[-1] not in ".!?":
+        text += "."
+
+    return text
     # ------------------------------------------------
 
 def process_audio_task(audio_input, config, send_fn):
@@ -279,10 +290,11 @@ def process_audio_task(audio_input, config, send_fn):
                     print(f"Transkribert: {transcription}")
 
                     formatted = format_text(transcription)
+                    final_text = simple_punctuation(formatted)
 
                     send_fn({
                         "type": "transcription",
-                        "text": formatted,
+                        "text": final_text,
                     })
                 else:
                     print("Ingen tekst gjenkjent.")
