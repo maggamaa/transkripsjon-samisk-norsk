@@ -25,7 +25,7 @@ for model_name, spec in SUPPORTED_MODELS.items():
 
 # 2. Last ned Silero VAD-modell
 print("Laster ned og cacher Silero VAD-modell...")
-torch.hub.load(repo_or_dir='snakers4/silero-vad', model='silero_vad', force_reload=True, onnx=False)
+torch.hub.load(repo_or_dir='snakers4/silero-vad', model='silero_vad', force_reload=True, onnx=False, trust_repo=True)
 print("VAD-modell lastet ned og cachet vellykket.")
 
 print("\nAlle nødvendige modeller er lastet ned og cachet.")
