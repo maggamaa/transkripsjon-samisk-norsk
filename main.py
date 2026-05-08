@@ -6,10 +6,7 @@ from flask import Flask, send_from_directory, request, jsonify
 # Added for public server----------------------------
 import os 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-from punctuation import (
-    restore_punctuation,
-    clear_stanza_from_memory,
-)
+from punctuation import restore_punctuation
 #----------------------------------------------------
 from flask_sock import Sock
 from flask_cors import CORS
@@ -300,14 +297,6 @@ def process_audio_task(audio_input, config, send_fn):
    finally:
        # Avoid per-request empty_cache(), which can introduce long pauses under load.
        gc.collect()
-
-       # Added for public server-------------------
-       # Optional cleanup of Stanza GPU memory
-       try:
-           clear_stanza_from_memory()
-       except Exception:
-           pass
-       #-------------------------------------------
 
        # Disabled for public server:
        #if torch.cuda.is_available():
