@@ -17,8 +17,10 @@ DEFAULT_CONFIG = {
     "TARGET_SAMPLERATE": 16000,
     "VAD_THRESHOLD": 0.5,
     "SILENCE_DURATION_S": 1.0,
+    # Added for public server----------
     "PUNCTUATION_ENABLED": True,
     "PUNCTUATION_LANG": "sme",
+    #----------------------------------    
 }
 
 SUPPORTED_MODELS = {

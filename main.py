@@ -173,6 +173,13 @@ try:
     vad_model, _ = torch.hub.load(repo_or_dir='snakers4/silero-vad', model='silero_vad', force_reload=False, onnx=False)
     print("VAD-modell lastet inn vellykket!")
 
+    print("Laster inn Stanza pipeline...")
+    restore_punctuation(
+        "test",
+        lang="sme"
+    )
+    print("Stanza pipeline klar!")
+
 except Exception as e:
    print(f"ADVARSEL: Kunne ikke laste modeller: {e}")
    traceback.print_exc()
