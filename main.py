@@ -41,7 +41,7 @@ class ModelManager:
 
    def get(self, model_name):
        if model_name not in self.available_models:
-           raise ValueError(f"Ustøttet modell forespurt: {model_name}")
+           raise ValueError(f"Unsupported model requested: {model_name}")
        return self._ensure_loaded(model_name)
 
    def unload(self):
@@ -68,7 +68,7 @@ class ModelManager:
            )
 
    def _load_model_locked(self, model_name):
-       print(f"Laster inn modell: {model_name}...")
+       print(f"Loading model: {model_name}...")
        self._unload_current_locked()
        spec = self.available_models[model_name]
        processor_cls = spec["processor_cls"]
@@ -84,12 +84,12 @@ class ModelManager:
 
        self._active_entry = {"processor": processor, "model": model, "spec": spec}
        self._active_model_name = model_name
-       print(f"{model_name} ble lastet og plassert på {self._target_device}.")
+       print(f"{model_name} was loaded and placed on {self._target_device}.")
 
    def _unload_current_locked(self):
        if not self._active_entry:
            return
-       print(f"Laster ut modell: {self._active_model_name}")
+       print(f"Loading model: {self._active_model_name}")
        model = self._active_entry.get("model")
        processor = self._active_entry.get("processor")
        del model
@@ -155,36 +155,36 @@ def index():
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 if DEFAULT_CONFIG["USE_FLOAT16"] and torch.cuda.is_available():
    torch_dtype = torch.float16
-   print("Bruker float16 for økt ytelse.")
+   print("Uses float16 for increased performance.")
 else:
    torch_dtype = torch.float32
-   print("Bruker float32 for stabilitet.")
+   print("Uses float32 for stability.")
 
-print(f"Bruker enhet: {device} med dtype: {torch_dtype}")
+print(f"Uses device: {device} with dtype: {torch_dtype}")
 model_manager = ModelManager(SUPPORTED_MODELS, device, torch_dtype)
 vad_model = None
 
 try:
     model_manager.preload(DEFAULT_CONFIG['MODEL_NAME'])
-    print("Laster inn VAD-modell...")
+    print("Loading VAD model...")
     vad_model, _ = torch.hub.load(repo_or_dir='snakers4/silero-vad', model='silero_vad', force_reload=False, onnx=False)
-    print("VAD-modell lastet inn vellykket!")
+    print("VAD model loaded successfully!")
 
-    print("Laster inn Stanza pipeline...")
+    print("Loading Stanza pipeline...")
     restore_punctuation(
         "test",
         lang="sme"
     )
-    print("Stanza pipeline klar!")
+    print("Stanza pipeline ready!")
 
 except Exception as e:
-   print(f"ADVARSEL: Kunne ikke laste modeller: {e}")
+   print(f"WARNING: Failed to load models: {e}")
    traceback.print_exc()
 
 
 # --- Helper functions ---
 def process_audio_task(audio_input, config, send_fn):
-   """Transkriberer lydklipp med valgt modell og sender tekst."""  
+   """Transcribes audio clips with selected model and sends text."""  
    model_name = config.get('MODEL_NAME', DEFAULT_CONFIG['MODEL_NAME'])
 
    try:
@@ -256,7 +256,7 @@ def process_audio_task(audio_input, config, send_fn):
                # Replacement:
         with asr_model_lock:
             with torch.no_grad():
-                print(f"Prosesserer {len(audio_input) / config['TARGET_SAMPLERATE']:.2f} sekunder med lyd...")
+                print(f"Processing {len(audio_input) / config['TARGET_SAMPLERATE']:.2f} seconds of audio...")
                 processed_input = processor(audio_input, sampling_rate=config['TARGET_SAMPLERATE'], return_tensors="pt", padding="longest")
                 input_values = processed_input.input_values.to(device)
                 attention_mask = processed_input.attention_mask.to(device) if "attention_mask" in processed_input else None
@@ -264,7 +264,7 @@ def process_audio_task(audio_input, config, send_fn):
                 predicted_ids = torch.argmax(logits, dim=-1)
                 transcription = processor.batch_decode(predicted_ids)[0].strip()
                 if transcription:
-                    print(f"Transkribert: {transcription}")
+                    print(f"Transcribed: {transcription}")
 
                     # Restore punctuation
                     if config.get("PUNCTUATION_ENABLED", True):
@@ -276,22 +276,22 @@ def process_audio_task(audio_input, config, send_fn):
 
                             transcription = punctuated.text
 
-                            print(f"Punktuert: {transcription}")
+                            print(f"Punctuated: {transcription}")
 
                         except Exception as punct_exc:
-                            print(f"Punctuation restoration feilet: {punct_exc}")
+                            print(f"Punctuation restoration failed: {punct_exc}")
 
                     send_fn({
                         "type": "transcription",
                         "text": transcription,
                     })
                 else:
-                    print("Ingen tekst gjenkjent.")
+                    print("No text recognized.")
                     #--------------------------------------------------------------------
 
 
    except Exception:
-       print("En uventet feil oppstod under transkribering:")
+       print("An unexpected error occurred during transcription.:")
        traceback.print_exc()
        send_fn({"error": "Internal server error during transcription."})
    finally:
@@ -318,7 +318,7 @@ def pcm_processor_worker(pcm_queue, send_fn, config, config_lock):
    last_speech_time = 0
    pre_trigger_queue = deque(maxlen=PRE_TRIGGER_CHUNKS)
 
-   print("VAD-prosessor startet.")
+   print("VAD processor started.")
    while True:
        chunk = pcm_queue.get()
        if chunk is None:
@@ -341,7 +341,7 @@ def pcm_processor_worker(pcm_queue, send_fn, config, config_lock):
 
        if speech_prob > current_config['VAD_THRESHOLD']:
            if not triggered:
-               print("Stemme oppdaget, starter opptak av segment...")
+               print("Voice detected, starts recording segment...")
                triggered = True
                if pre_trigger_queue:
                    for pre_chunk in pre_trigger_queue:
@@ -352,7 +352,7 @@ def pcm_processor_worker(pcm_queue, send_fn, config, config_lock):
        elif triggered:
            speech_buffer.extend(chunk)
            if time.time() - last_speech_time > current_config['SILENCE_DURATION_S']:
-               print(f"Trigger: Stillhet i {current_config['SILENCE_DURATION_S']}s etter tale.")
+               print(f"Trigger: Silence in {current_config['SILENCE_DURATION_S']}s after speech.")
                audio_input = np.frombuffer(speech_buffer, dtype=np.int16).astype(np.float32) / 32768.0
                asr_executor.submit(process_audio_task, audio_input, current_config, send_fn)
                speech_buffer.clear()
@@ -363,7 +363,7 @@ def pcm_processor_worker(pcm_queue, send_fn, config, config_lock):
 
 
        if triggered and len(speech_buffer) / (current_config['TARGET_SAMPLERATE'] * 2) >= current_config['MAX_BUFFER_SECONDS']:
-           print(f"Trigger: Maks varighet på {current_config['MAX_BUFFER_SECONDS']}s nådd.")
+           print(f"Trigger: Max duration of {current_config['MAX_BUFFER_SECONDS']}s reached.")
            audio_input = np.frombuffer(speech_buffer, dtype=np.int16).astype(np.float32) / 32768.0
            asr_executor.submit(process_audio_task, audio_input, current_config, send_fn)
            speech_buffer.clear()
@@ -373,7 +373,7 @@ def pcm_processor_worker(pcm_queue, send_fn, config, config_lock):
 # --- WebSocket endpoint ---
 @sock.route('/stream')
 def stream(ws):
-   print("Klient koblet til, starter vedvarende ffmpeg-prosess.")
+   print("Client connected, starting persistent ffmpeg process.")
    session_config = DEFAULT_CONFIG.copy()
    config_lock = threading.Lock()
    loader_state_lock = threading.Lock()
@@ -385,16 +385,16 @@ def stream(ws):
            with ws_send_lock:
                ws.send(json.dumps(payload))
        except ConnectionClosed as closed_err:
-           print(f"WebSocket lukket, dropper melding: {closed_err}")
+           print(f"WebSocket closed, dropping message: {closed_err}")
        except Exception as send_error:
-           print(f"Kunne ikke sende WS-melding: {send_error}")
+           print(f"Failed to send WS message: {send_error}")
 
    def start_model_load(target_model_name):
        def _load(name):
            try:
                model_manager.preload(name)
            except Exception as load_error:
-               print(f"Kunne ikke laste modell {name}: {load_error}")
+               print(f"Could not load model {name}: {load_error}")
                traceback.print_exc()
                safe_ws_send({
                    "type": "model_status",
@@ -405,7 +405,7 @@ def stream(ws):
            else:
                with config_lock:
                    session_config['MODEL_NAME'] = name
-               print(f"Oppdaterer konfigurasjon: MODEL_NAME = {name}")
+               print(f"Updating configuration: MODEL_NAME = {name}")
                safe_ws_send({
                    "type": "model_status",
                    "status": "ready",
@@ -471,7 +471,7 @@ def stream(ws):
                        #     print(f"Ignorerer ukjent modellvalg: {value}")
                        # Replacement-----------------------------------------:
                        if key == 'MODEL_NAME':
-                           print("Ignorerer forespørsel om endring av MODEL_NAME (fast modell på offentlig server).")
+                           print("Ignoring request to change MODEL_NAME (fixed model on public server).")
                            continue
                            #-------------------------------------------------
 
@@ -479,23 +479,23 @@ def stream(ws):
                            try:
                                numeric_value = float(value)
                            except (TypeError, ValueError):
-                               print(f"Kunne ikke parse numerisk verdi for {key}: {value}")
+                               print(f"Could not parse numeric value for {key}: {value}")
                                continue
                            with config_lock:
                                session_config[key] = numeric_value
-                           print(f"Oppdaterer konfigurasjon: {key} = {numeric_value}")
+                           print(f"Updating configuration: {key} = {numeric_value}")
                except json.JSONDecodeError:
-                   print("Mottok ugyldig JSON-melding.")
+                   print("Received invalid JSON message.")
            else:
                try:
                    ffmpeg_process.stdin.write(message)
                except BrokenPipeError:
-                   print("FFmpeg-prosess avsluttet uventet.")
+                   print("FFmpeg process terminated unexpectedly.")
                    break
    except Exception as e:
-       print(f"En feil oppstod i WebSocket-tilkoblingen: {e}")
+       print(f"An error occurred in the WebSocket connection.: {e}")
    finally:
-       print("Klient koblet fra. Lukker ffmpeg og rydder opp tråder.")
+       print("Client disconnected. Closing ffmpeg and cleaning up threads.")
        if ffmpeg_process.stdin: ffmpeg_process.stdin.close()
        ffmpeg_process.terminate()
        try:
@@ -505,9 +505,9 @@ def stream(ws):
        if reader.is_alive(): pcm_queue.put(None)
        reader.join(timeout=2)
        processor_thread.join(timeout=2)
-       print("Opprydding fullført.")
+       print("Cleanup completed.")
 
 
 if __name__ == '__main__':
-   print(f"Starter tjener på http://0.0.0.0:5000")
+   print(f"Starts server on http://0.0.0.0:5000")
    app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)

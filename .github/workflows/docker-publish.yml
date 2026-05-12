@@ -1,7 +1,7 @@
-# Navnet på GitHub Action-flyten
+# The name of the GitHub Action flow
 name: Bygg og publiser Docker-image til GHCR
 
-# Denne Action-en kjører hver gang du pusher en endring til 'main'-branchen
+# This Action runs every time you push a change to the 'main' branch
 on:
   push:
     branches: [ "main" ]
@@ -12,15 +12,15 @@ permissions:
 
 jobs:
   build-and-push:
-    # Bruker en standard, fersk Ubuntu-maskin for å kjøre jobben
+    # Using a standard, fresh Ubuntu machine to run the job
     runs-on: ubuntu-latest
 
     steps:
-      # Steg 1: Sjekker ut koden din fra repository-et
+      # Step 1: Checking out your code from the repository
       - name: Hent kode
         uses: actions/checkout@v4
 
-      # NYTT STEG: Frigjør diskplass ved å manuelt slette store, unødvendige mapper
+      # NEW STEP: Free up disk space by manually deleting large, unnecessary folders
       - name: Frigjør diskplass
         run: |
           echo "Før rydding:"
@@ -31,8 +31,8 @@ jobs:
           echo "Etter rydding:"
           df -h
 
-      # Steg 2: Logger inn på GitHub Container Registry (GHCR)
-      # Den bruker en hemmelighet (secret) for å unngå å eksponere passordet ditt
+      # Step 2: Log in to GitHub Container Registry (GHCR)
+      # It uses a secret to avoid exposing your password.
       - name: Logg inn på GHCR
         uses: docker/login-action@v3
         with:
@@ -40,7 +40,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }} # Replaced: ${{ secrets.CR_PAT }}
 
-      # Steg 3: Bygger Docker-imaget basert på din Dockerfile og pusher det til GHCR
+      # Step 3: Build the Docker image based on your Dockerfile and push it to GHCR
       - name: Bygg og push Docker-image
         uses: docker/build-push-action@v5
         with:

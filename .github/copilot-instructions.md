@@ -1,4 +1,4 @@
-# Copilot Instructions
+# Copilot Instructions (NEEDS UPDATING!)
 
 ## Big Picture
 - Realtime STT+translation stack: Flask backend in [main.py](../main.py) handles audio ingestion + Whisper inference, while [index.html](../index.html) provides the UI, streams microphone audio over WebSocket, and calls the TartuNLP Translation API for target-language text.
