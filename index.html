@@ -33,16 +33,13 @@
        }
    </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col"> <!-- Moved to main: flex items-center justify-center p-4">-->
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
 
-    <!--Added Header for public server-->
     <header class="w-full shadow-md bg-[#e1bc48] dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-6 py-6 flex items-center">
             
-            <!--Logo-->
             <img src="./static/images/sa-logo-nordsamisk.png" alt="Sámi Allaskuvla logo" width="221px" class="me-2">
             
-            <!--UI Language selector-->
             <div class="ml-auto">
                 <select id="uiLanguage" 
                 class= "px-4 py-2 rounded-lg border border-gray-300 bg-white
@@ -63,7 +60,6 @@
         </div>
     </header>
 
-    <!--Added Main for public server-->
     <main class="flex-grow flex items-center justify-center p-4">
 
     <div class="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8">
@@ -73,52 +69,15 @@
        </div>
 
        <div class="flex flex-col items-center justify-center space-y-6 mb-6">
-           <button id="recordButton" class="px-8 py-4 bg-[#e1bc48] text-white font-semibold rounded-full shadow-md hover:bg-[#fdefce] hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e1bc48] transition-all duration-300 ease-in-out text-lg"></button>  <!--colours changed-->
-           <div id="status" class="h-6 text-center text-gray-600 dark:text-gray-300 font-medium"></div> <!--Klar til å starte</div>-->
+           <button id="recordButton" class="px-8 py-4 bg-[#e1bc48] text-white font-semibold rounded-full shadow-md hover:bg-[#fdefce] hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e1bc48] transition-all duration-300 ease-in-out text-lg"></button>
+           <div id="status" class="h-6 text-center text-gray-600 dark:text-gray-300 font-medium"></div>
        </div>
-
-       <!--
-       Model selection is disabled for the public server.
-       The UI is locked to a single wav2vec2 model to avoid GPU memory exhaustion and multi-user conflicts.
-
-       <div class="mb-6">
-           <h2 class="text-lg font-semibold text-center mb-3">Modellvalg</h2>
-           <div id="modelSelector" class="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-               <label class="flex items-start space-x-3 border border-gray-200 dark:border-gray-700 rounded-xl p-4 cursor-pointer hover:border-blue-400">
-                   <input type="radio" name="modelSelection" value="NbAiLab/nb-whisper-large" class="mt-1 text-blue-600 focus:ring-blue-500" checked>
-                   <div>
-                       <div class="font-semibold text-gray-800 dark:text-gray-100">Sámi → Norsk</div>
-                       <div class="text-sm text-gray-500 dark:text-gray-400">nb-whisper-large</div>
-                   </div>
-               </label>
-               <label class="flex items-start space-x-3 border border-gray-200 dark:border-gray-700 rounded-xl p-4 cursor-pointer hover:border-blue-400">
-                   <input type="radio" name="modelSelection" value="NbAiLab/whisper-large-sme" class="mt-1 text-blue-600 focus:ring-blue-500">
-                   <div>
-                       <div class="font-semibold text-gray-800 dark:text-gray-100">Sámi → Sámi</div>
-                       <div class="text-sm text-gray-500 dark:text-gray-400">whisper-large-sme</div>
-                   </div>
-               </label>
-               <label class="flex items-start space-x-3 border border-gray-200 dark:border-gray-700 rounded-xl p-4 cursor-pointer hover:border-blue-400">
-                   <input type="radio" name="modelSelection" value="GetmanY1/wav2vec2-large-sami-cont-pt-22k-finetuned" class="mt-1 text-blue-600 focus:ring-blue-500">
-                   <div>
-                       <div class="font-semibold text-gray-800 dark:text-gray-100">Sámi (CTC)</div>
-                       <div class="text-sm text-gray-500 dark:text-gray-400">wav2vec2-large-sami</div>
-                   </div>
-               </label>
-           </div>
-       </div>
-       -->
 
         <div class="mb-4 flex justify-center">
             <div class="inline-flex rounded-md shadow-sm" role="group">
                 <button type="button" id="showNorwegianBtn" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-[#fdefce] dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600"></button>
                 <button type="button" id="showTranslationBtn" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-[#fdefce] dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600"></button>
                 <button type="button" id="showBothBtn" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-[#fdefce] dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600"></button>
-                <!-- Disabled for the public server:
-                <button type="button" id="showNorwegianBtn" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-gray-200 rounded-l-lg hover:bg-blue-700 dark:bg-blue-500 dark:border-gray-600 dark:text-white dark:hover:bg-blue-600">Norsk</button>
-                <button type="button" id="showTranslationBtn" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600">Oversettelse</button>
-                <button type="button" id="showBothBtn" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600">Begge</button>
-                -->
             </div>
         </div>
 
@@ -131,11 +90,9 @@
         </div>
 
         <div id="outputContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div id="norwegianContainer">
+            <div id="norwegianContainer"> <!-- RECOMMENDED FIX: misleading container ID name to "transcriptionContainer"-->
                 <h2 id="transcriptionHeader" class="text-lg font-semibold mb-2 text-center"></h2>
-                <!-- Disabled for the public server:
-                <div id="transcriptionContainer" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-64 overflow-y-auto border border-gray-200 dark:border-gray-600"></div>
-                Replacement (added copy to clipboard):---------------------->
+
                 <div id="transcriptionContainer" class="relative bg-gray-50 dark:bg-gray-700 rounded-lg p-4 pt-10 h-64 overflow-y-auto border border-gray-200 dark:border-gray-600">
 
                     <button id="copyTranscriptionBtn"
@@ -144,13 +101,10 @@
                     </button>
                     
                 </div>
-                <!------------------------>
             </div>
             <div id="translationContainer" class="hidden">
                  <h2 class="text-lg font-semibold mb-2 text-center" id="translationHeader"></h2>
-                <!-- Disabled for the public server:
-                <div id="translationOutput" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-64 overflow-y-auto border border-gray-200 dark:border-gray-600"></div>
-                Replacement (added copy to clipboard):---------------------->
+
                 <div id="translationOutput" class="relative bg-gray-50 dark:bg-gray-700 rounded-lg p-4 pt-10 h-64 overflow-y-auto border border-gray-200 dark:border-gray-600">
 
                     <button id="copyTranslationBtn"
@@ -158,8 +112,7 @@
                         ⧉
                     </button>
 
-                </div>
-                <!------------------------>            
+                </div>           
             </div>
         </div>
  
@@ -210,11 +163,6 @@
         const maxSecondsValue = document.getElementById('maxSecondsValue');
         const silenceDurationValue = document.getElementById('silenceDurationValue');
         const vadThresholdValue = document.getElementById('vadThresholdValue');
-        /* Disabled for public server:
-        const modelRadios = document.querySelectorAll('input[name="modelSelection"]'); */
- 
-        //--------------------------
-        // Added for public server:
         const copyTranscriptionBtn = document.getElementById('copyTranscriptionBtn');
         const copyTranslationBtn = document.getElementById('copyTranslationBtn');
         let lastStatusKey = 'ready';
@@ -225,65 +173,15 @@
             fi: 'fin',
             sme: 'sme'
         };
-        //--------------------------
 
         let isRecording = false;
         let mediaRecorder;
         let socket;
         const CHUNK_TIMESLICE_MS = 500;
-        const TARTUNLP_API_URL = 'https://samiailab.samas.no/api/translation' // Replaced:'https://api.tartunlp.ai/translation/v2';
+        const TARTUNLP_API_URL = 'https://samiailab.samas.no/api/translation'; // Adjusted version of TartuNLP Tahetorn_9B model
+        const SOURCE_LANGUAGE = 'sme'; // wav2vec2 outputs Northern Sámi
 
-        // Fixed model for public server (wav2vec2) outputs Northern Sámi
-        const SOURCE_LANGUAGE = 'sme';
-
-
-        /* Disabled for public server:
-        Multi-model support
-        const DEFAULT_MODEL = 'NbAiLab/nb-whisper-large';
-        const MODEL_OPTIONS = {
-            'NbAiLab/nb-whisper-large': {
-                label: 'Sámi → Norsk',
-                sourceLang: 'nor',
-                transcriptionLabel: 'Norsk',
-                defaultTarget: 'sme'
-            },
-            'NbAiLab/whisper-large-sme': {
-                label: 'Sámi → Sámi',
-                sourceLang: 'sme',
-                transcriptionLabel: 'Nordsamisk',
-                defaultTarget: 'nor'
-            },
-            'GetmanY1/wav2vec2-large-sami-cont-pt-22k-finetuned': {
-                label: 'Sámi (CTC)',
-                sourceLang: 'sme',
-                transcriptionLabel: 'Nordsamisk (CTC)',
-                defaultTarget: 'nor'
-            }
-        };
-        let selectedModel = DEFAULT_MODEL;
-
-        let isModelLoading = false;
-        let lastStatusMessage = statusDiv.textContent || 'Klar til å starte';
-
-        function getModelLabel(modelName) {
-            return MODEL_OPTIONS[modelName]?.label || modelName;
-        }
-
-        function resolveSourceLanguage(modelName) {
-            const entry = MODEL_OPTIONS[modelName];
-            if (entry && entry.sourceLang) {
-                return normalizeLanguageCode(entry.sourceLang);
-            }
-            if (typeof modelName === 'string' && modelName.toLowerCase().includes('whisper-large-sme')) {
-                return 'sme';
-            }
-            return 'nor';
-        }
-        */
-
-        //------------------------------------------------------------
-        // Added multilanguage UI support for public server:
-        // (Created [lang].json files and removed hardcoded Norwegian text)
+        // Multilanguage UI support for public server
         const SUPPORTED_UI_LANGS = ['sme', 'no', 'fi', 'en'];
         const DEFAULT_UI_LANG = 'no';
         const UI_STRINGS = {};
@@ -402,129 +300,19 @@
         function refreshStatusMessage() {
             setStatusMessage(lastStatusKey);
         }
-        //------------------------------------------------------------
-
-        /* Disabled for public server:
-        function setStatusMessage(message) {
-            lastStatusMessage = message;
-            if (!isModelLoading) {
-                statusDiv.textContent = message;
-            }
-        }
-
-        function setModelLoadingState(isLoading, modelName) {
-            if (isLoading) {
-                isModelLoading = true;
-                statusDiv.textContent = `Laster modell (${getModelLabel(modelName)})...`;
-            } else {
-                isModelLoading = false;
-                statusDiv.textContent = lastStatusMessage;
-            }
-        }
-
-        function handleModelStatusMessage(payload) {
-            const { status, modelName, error } = payload;
-            if (status === 'loading') {
-                setModelLoadingState(true, modelName);
-                return;
-            }
-            if (status === 'ready') {
-                setModelLoadingState(false, modelName);
-                if (isRecording) {
-                    setStatusMessage('Strømmer lyd...');
-                } else {
-                    setStatusMessage('Klar til å starte');
-                }
-                return;
-            }
-            if (status === 'error') {
-                setModelLoadingState(false, modelName);
-                const errorText = error ? `Feil ved lasting av modell: ${error}` : 'Feil ved lasting av modell.';
-                setStatusMessage(errorText);
-            }
-        }
-        */
 
         function normalizeLanguageCode(code) {
             return (code || '').toString().trim().toLowerCase();
         }
 
-        //-------------------------------
-        //Added list of supported translation languages for public server
+        //List of supported translation languages
+        // Language code -> Language name mapping in json files
         const SUPPORTED_TRANSLATION_LANGS = [
             'eng', 'nor', 'fin',
             'sma', 'sme', 'smj', 'smn', 'sms',
             'sjd', 'sje', 'sju'
         ];
-        //-------------------------------
 
-        /* Disabled for public server: 
-        // Static list of supported translation pairs from TartuNLP API
-        // Language code -> Language name mapping (in Norwegian)
-        const supportedLanguages = Object.entries({
-            'eng': 'Engelsk',
-            'kca': 'Khanti',
-            'koi': 'Komi-permjakisk',
-            'kpv': 'Komi-syrjensk',
-            'krl': 'Karelsk',
-            'liv': 'Livisk',
-            'lud': 'Lüüdisk',
-            'mdf': 'Moksja',
-            'mhr': 'Austmarisk',
-            'mns': 'Mansi',
-            'nor': 'Norsk',
-            'mrj': 'Vestmarisk',
-            'myv': 'Erzja',
-            'olo': 'Livvi',
-            'sma': 'Sørsamisk',
-            'sme': 'Nordsamisk',
-            'smj': 'Lulesamisk',
-            'smn': 'Enaresamisk',
-            'sms': 'Skoltesamisk',
-            'udm': 'Udmurtisk',
-            'vep': 'Vepsisk',
-            'vro': 'Võro'
-        }).reduce((acc, [code, name]) => {
-            const normalizedCode = normalizeLanguageCode(code);
-            if (normalizedCode) {
-                acc[normalizedCode] = name;
-            }
-            return acc;
-        }, {});
-        if (!supportedLanguages.nor) {
-            supportedLanguages.nor = 'Norsk';
-        }
-
-        // Populate the language dropdown on page load
-        function loadSupportedLanguages() {
-            targetLanguageSelect.innerHTML = '';
-
-            const sortedEntries = Object.entries(supportedLanguages).sort((a, b) =>
-                a[1].localeCompare(b[1])
-            );
-            const seenCodes = new Set();
-
-            sortedEntries.forEach(([code, name]) => {
-                if (seenCodes.has(code)) return;
-                seenCodes.add(code);
-                const option = document.createElement('option');
-                option.value = code;
-                option.textContent = name;
-                targetLanguageSelect.appendChild(option);
-            });
-
-            // Public server translation default target language changed from sme to nor
-            if (supportedLanguages.nor) {
-                targetLanguageSelect.value = 'nor';
-            } else if (sortedEntries.length > 0) {
-                targetLanguageSelect.value = sortedEntries[0][0];
-            }
-
-            updateTranslationHeader();
-        }*/
-
-        //-------------------------------
-        // Added for public server: 
         // Populate the language dropdown
         function loadSupportedLanguages() {
 
@@ -561,7 +349,6 @@
 
             updateTranslationHeader();
         }
-        //--------------------------------
 
         function selectTargetLanguage(targetCode) {
             const normalizedTarget = normalizeLanguageCode(targetCode);
@@ -574,35 +361,14 @@
             updateTranslationHeader();
         }
 
-        /* Disabled for public server:
-        function applyModelUI(modelName) {
-            const modelSettings = MODEL_OPTIONS[modelName] || {};
-            const transLabel = modelSettings.transcriptionLabel || 'Norsk';
-            transcriptionHeader.textContent = transLabel;
-            showNorwegianBtn.textContent = transLabel;
-            if (modelSettings.defaultTarget) {
-                selectTargetLanguage(modelSettings.defaultTarget);
-            } else {
-                updateTranslationHeader();
-            }
-        }
-        */
-
         // Update translation header based on selected language
         function updateTranslationHeader() {
             const selectedLang = normalizeLanguageCode(targetLanguageSelect.value);
-            /* Disabled for public server:
-            translationHeader.textContent = supportedLanguages[selectedLang] || selectedLang.toUpperCase();
-            Replacement: -----------------------*/
             const langNames = UI_STRINGS[uiLang]?.languages || UI_STRINGS.no?.languages || {};
             translationHeader.textContent = langNames[selectedLang] || selectedLang.toUpperCase();
-            //-------------------------------
         }
 
-        // Update translation header when language changes
-        /* Disabled for public server:
-        targetLanguageSelect.addEventListener('change', updateTranslationHeader);
-        Replacement (Track manual user changes): -----------------------*/
+        // Update translation header when language changes (Track manual user changes)
         let userChangedTargetLanguage = false;
 
         targetLanguageSelect.addEventListener('change', () => {
@@ -610,16 +376,9 @@
             updateTranslationHeader();
         });
 
-        // TartuNLP Translation API v2 function
- 
-        /*  Disabled for public server:
-        async function translateText(text, targetLang, modelNameOverride) {
-            const resolvedModel = modelNameOverride || selectedModel;
-            const sourceLang = resolveSourceLanguage(resolvedModel);
-        Replacement:-----------------------:*/
+        // Translation API function
         async function translateText(text, targetLang) {
             const sourceLang = SOURCE_LANGUAGE;
-            //-------------------------------
 
             const normalizedTarget = normalizeLanguageCode(targetLang) || 'nor';
 
@@ -649,7 +408,6 @@
             }
         }
 
-        // Copy container content function added for public server--------
         function copyContainerText(container) {
             const text = Array.from(container.querySelectorAll('p'))
                 .map(p => p.textContent)
@@ -680,7 +438,6 @@
                 button.style.opacity = '0.6';
             }, 1000);
         }
-        //----------------------------------------------------------------
 
         function sendConfig(key, value) {
             if (socket && socket.readyState === WebSocket.OPEN) {
@@ -710,27 +467,9 @@
                 btn.classList.remove('bg-blue-600', 'dark:bg-blue-500', 'text-white');
                 btn.classList.add('bg-white', 'dark:bg-gray-700', 'text-gray-900', 'dark:text-white');
             });
-            activeBtn.classList.add('bg-[#e1bc48]', 'text-white', 'hover:text-gray-900'); //colours changed. Added for public server: , 'hover:text-gray-900'. Removed: 'dark:bg-blue-500',
+            activeBtn.classList.add('bg-[#e1bc48]', 'text-white', 'hover:text-gray-900');
             activeBtn.classList.remove('bg-white', 'dark:bg-gray-700', 'text-gray-900', 'dark:text-white');
         }
-
-        /* disabled for public server:
-        modelRadios.forEach((radio) => {
-            if (radio.checked) {
-                selectedModel = radio.value;
-            }
-            radio.addEventListener('change', (event) => {
-                if (!event.target.checked) return;
-                selectedModel = event.target.value;
-                applyModelUI(selectedModel);
-                if (socket && socket.readyState === WebSocket.OPEN) {
-                    sendConfig('MODEL_NAME', selectedModel);
-                } else {
-                    preloadModel(selectedModel);
-                }
-            });
-        });
-        */
 
         showNorwegianBtn.addEventListener('click', () => {
             outputContainer.classList.remove('md:grid-cols-2'); outputContainer.classList.add('md:grid-cols-1');
@@ -776,10 +515,6 @@
             socket.onopen = async () => {
                 setStatusMessage('startingMic');
                 try {
-
-                    /* Disabled for public server:
-                    sendConfig('MODEL_NAME', selectedModel);
-                    */
                     sendConfig('MAX_BUFFER_SECONDS', parseFloat(maxSecondsSlider.value));
                     sendConfig('SILENCE_DURATION_S', parseFloat(silenceDurationSlider.value));
                     sendConfig('VAD_THRESHOLD', parseFloat(vadThresholdSlider.value));
@@ -798,36 +533,16 @@
             };
 
             socket.onmessage = async (event) => {
-                /* Disabled for public server:
-                const data = JSON.parse(event.data);
-                Replacement (WebSocket crash protection added)---------:*/
                 let data;
                 try {
                     data = JSON.parse(event.data);
                 } catch {
-                    console.error("Invalid server message:", event.data);
+                    console.error("Invalid server message:", event.data); // WebSocket crash protection
                     return;
                 } 
-                //-----------------------------------------------------
-
-                /* Disabled for public server:
-                if (data.type === 'model_status') {
-                    handleModelStatusMessage(data);
-                    return;
-                }
-                */
  
                 if (data.type === 'transcription') {
 
-                    /* Disabled for public server:
-                    // Add Norwegian transcription
-                    const norwegianP = document.createElement('p');
-                    norwegianP.textContent = data.text;
-                    norwegianP.classList.add('mb-2');
-                    transcriptionContainer.appendChild(norwegianP);
-                    transcriptionContainer.scrollTop = transcriptionContainer.scrollHeight;
-                    
-                    Replacement------------------------------:*/
                     // Add transcription (Northern Sámi)
                     const transcriptionP = document.createElement('p');
                     transcriptionP.textContent = data.text;
@@ -835,9 +550,8 @@
                     transcriptionContainer.appendChild(transcriptionP);
                     transcriptionContainer.scrollTop = transcriptionContainer.scrollHeight;
 
-                    // Public server only translates if translation UI is visible and prevents translation placeholder if text is empty
+                    // Translates only if translation UI is visible and prevents translation placeholder if text is empty
                     if (data.text && !translationContainerDiv.classList.contains('hidden')) {
-                    //-----------------------------------------
 
                         // Create translation placeholder
                         const translationP = document.createElement('p');
@@ -846,9 +560,9 @@
                         translationOutput.appendChild(translationP);
                         translationOutput.scrollTop = translationOutput.scrollHeight;
 
-                        // Translate using TartuNLP API
+                        // Translate using Translation API
                         const targetLang = targetLanguageSelect.value;
-                        const translation = await translateText(data.text, targetLang); //Disabled for public server: , data.modelName);
+                        const translation = await translateText(data.text, targetLang);
  
                         // Update translation
                         translationP.textContent = translation;
@@ -858,12 +572,8 @@
 
                 } else if (data.error) {
                     console.error(t("serverError"), data.error);
-                    /* Disabled for public server:
-                    setStatusMessage(`Feil: ${data.error}`);
-                    Replacement:---------------------- */
                     lastStatusKey = null; // prevents refresh from overwriting message
                     statusDiv.textContent = `${t('serverFail')} ${data.error}`; 
-                    //-------------------------------- 
                 }
             };
 
@@ -897,50 +607,18 @@
             if (recording) {
                 recordButton.textContent = t('stopRecording');
                 recordButton.classList.add('bg-red-600', 'hover:bg-red-700', 'pulse');
-                recordButton.classList.remove('bg-[#e1bc48]', 'hover:bg-[#fdefce]'); //colours changed for public server
+                recordButton.classList.remove('bg-[#e1bc48]', 'hover:bg-[#fdefce]');
             } else {
                 recordButton.textContent = t('startRecording');
                 recordButton.classList.remove('bg-red-600', 'hover:bg-red-700', 'pulse');
-                recordButton.classList.add('bg-[#e1bc48]', 'hover:bg-[#fdefce]'); //colours changed for public server
+                recordButton.classList.add('bg-[#e1bc48]', 'hover:bg-[#fdefce]');
             }
         }
 
         recordButton.addEventListener('click', () => { if (!isRecording) startRecording(); else stopRecording(); });
-        /* Disabled for public server:
-        updateActiveButton(showNorwegianBtn);
-        showNorwegianBtn.click();
-        Replacement (shows "Both" as default):---------------------- */
-        showBothBtn.click();
+        showBothBtn.click(); // "Both" as default choice
 
-        /* Disabled for public server:
-        async function preloadModel(modelName) {
-            try {
-                setModelLoadingState(true, modelName);
-                const response = await fetch('/preload-model', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ modelName })
-                });
-                const data = await response.json();
-                if (!response.ok) {
-                    throw new Error(data.error || 'Klarte ikke å laste modell.');
-                }
-                setModelLoadingState(false, modelName);
-            } catch (error) {
-                console.error('Preload error:', error);
-                setStatusMessage(error.message || 'Klarte ikke å laste modell.');
-                setModelLoadingState(false, modelName);
-            }
-        }      
-
-        // Load supported languages on page load
-        loadSupportedLanguages();
-
-        applyModelUI(selectedModel);
-        */
-
-        // Popup logic added for public server
-
+        // Popup logic
         function openPopup(type) {
             const mainPopup = document.getElementById("mainPopup");
             const popupContent = document.getElementById("popupContent");
@@ -1033,7 +711,6 @@
     </script>
     </main>
 
-    <!--Added Footer for public server-->
     <footer class="w-full mt-10 bg-[#e1bc48] dark:bg-gray-800 text-gray-900 dark:text-gray-100">
 
         <!-- Logo Row -->
@@ -1222,7 +899,6 @@
     <div data-template="faq" class="hidden">
         <div id="faqPopupContent"></div>
     </div>
-
  
 </body>
 </html>
